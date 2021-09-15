@@ -2,6 +2,7 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+from os.path import isfile
 import re
 import sys
 import time
@@ -26,6 +27,10 @@ class Timer(QMainWindow):
         
         self.parent_path = ''.join('/' if c == '\\' else c for c in sys.path[0])
         self.log_name = self.parent_path + '/timer.log'
+        if not isfile(self.log_name):
+            with open(self.log_name, 'w') as f:
+                f.write('')
+
 
     def setupUi(self, Timer):
         if not Timer.objectName():
